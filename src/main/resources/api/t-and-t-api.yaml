@@ -1,0 +1,592 @@
+openapi: 3.1.0
+info:
+  title: Thread & Thrive API
+  description: "Thread & Thrive API is an api that is used to manage the Thread & Thrive platform. 
+  This API allows you to create, retrieve, update, and delete clothing items that are available in the user's inventory."
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/v1'
+    description: Production server
+tags:
+  - name: inventory
+    description: Operations related to clothing items in the user's inventory
+  - name: user
+    description: Operations related to user management
+paths:
+  /inventory/{itemId}/details:
+    get:
+      tags:
+        - inventory
+      summary: Get a clothing item in the user's inventory
+      operationId: getClothingItem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          description: The ID of the clothing item
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of clothing items in the user's inventory
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/ClothingItem'
+        '401':
+          description: Unauthorized access, user must be logged in to view clothing items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Unauthorized access, please log in."
+        '404':
+          description: Clothing item not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Clothing item not found in inventory."
+    put:
+      tags:
+        - inventory
+      summary: Update a clothing item in the user's inventory
+      operationId: updateClothingItem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          description: The ID of the clothing item to be updated
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClothingItem'
+      responses:
+        '200':
+          description: The clothing item has been updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClothingItem'
+        '401':
+          description: Unauthorized access, user must be logged in to update clothing items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Unauthorized access, please log in."
+        '404':
+          description: Clothing item not found for update
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Clothing item not found in inventory."
+    delete:
+      tags:
+        - inventory
+      summary: Delete a clothing item from the user's inventory
+      operationId: deleteClothingItem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          description: The ID of the clothing item to delete
+          schema:
+            type: string
+      responses:
+        '204':
+          description: The clothing item has been deleted successfully
+        '401':
+          description: Unauthorized access, user must be logged in to delete clothing items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Unauthorized access, please log in."
+        '404':
+          description: Clothing item not found for deletion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Clothing item not found in inventory."
+  /inventory/{itemId}/image:
+    get:
+      tags:
+        - inventory
+      summary: Fetch the image of a clothing item in the user's inventory
+      operationId: getClothingItemImage
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          description: The ID of the clothing item
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The image of the clothing item
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        '401':
+          description: Unauthorized access, user must be logged in to fetch clothing item images
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Unauthorized access, please log in."
+        '404':
+          description: Clothing item not found for image fetching
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Clothing item not found in inventory."
+    put:
+      tags:
+        - inventory
+      summary: Update the image of a clothing item in the user's inventory
+      operationId: updateClothingItemImage
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          description: The ID of the clothing item to be updated
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          image/png:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: The image of the clothing item has been updated
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        '401':
+          description: Unauthorized access, user must be logged in to update clothing item images
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Unauthorized access, please log in."
+        '404':
+          description: Clothing item not found for image update
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Clothing item not found in inventory."
+    delete:
+      tags:
+        - inventory
+      summary: Delete the image of a clothing item from the user's inventory
+      operationId: deleteClothingItemImage
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          description: The ID of the clothing item to delete the image from
+          schema:
+            type: string
+      responses:
+        '204':
+          description: The image of the clothing item has been deleted successfully
+        '401':
+          description: Unauthorized access, user must be logged in to delete clothing item images
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Unauthorized access, please log in."
+        '404':
+          description: Clothing item not found for image deletion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Clothing item not found in inventory."
+    post:
+      tags:
+        - inventory
+      summary: create an image for a clothing item in the user's inventory
+      operationId: createClothingItemImage
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          description: The ID of the clothing item
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          image/png:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '201':
+          description: The image for the clothing item has been uploaded successfully
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        '401':
+          description: Unauthorized access, user must be logged in to upload clothing item images
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Unauthorized access, please log in."
+        '404':
+          description: User or clothing item not found for image upload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "User or clothing item not found, please check the IDs."
+  /inventory/user/{userId}/details:
+    post:
+      tags:
+        - inventory
+      summary: Create a new clothing item in the user's inventory
+      operationId: createClothingItem
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The ID of the user
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClothingItem'
+      responses:
+        '201':
+          description: The created clothing item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryId'
+        '401':
+          description: Unauthorized access, user must be logged in to create clothing items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Unauthorized access, please log in."
+        '404':
+          description: User not found for creating clothing item
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "User not found, please check the user ID."
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "User created successfully."
+        '400':
+          description: Bad request, invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Invalid input data."
+        '409':
+          description: Conflict, user with the same email already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "User with this email already exists."
+  /user/{userId}:
+    get:
+      tags:
+        - user
+      summary: Get user details by user ID
+      operationId: getUserById
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The ID of the user to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized access, user must be logged in to view user details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Unauthorized access, please log in."
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "User not found, please check the user ID."
+    put:
+      tags:
+        - user
+      summary: Update user details by user ID
+      operationId: updateUserById
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The ID of the user to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User details updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized access, user must be logged in to view user details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Unauthorized access, please log in."
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "User not found, please check the user ID."
+    delete:
+      tags:
+        - user
+      summary: Delete a user by user ID
+      operationId: deleteUserById
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The ID of the user to delete
+          schema:
+            type: string
+      responses:
+        '204':
+          description: User deleted successfully
+        '401':
+          description: Unauthorized access, user must be logged in to delete user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "Unauthorized access, please log in."
+        '404':
+          description: User not found for deletion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example: "User not found, please check the user ID."
+components:
+  schemas:
+    ClothingItem:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique identifier for the clothing item
+        itemId:
+          type: string
+          description: The unique identifier for the clothing item
+        name:
+          type: string
+          description: The name of the clothing item
+        description:
+          type: string
+          description: A brief description of the clothing item
+        size:
+          type: object
+          $ref: '#/components/schemas/Size'
+          description: The size of the clothing item
+        color:
+          type: object
+          $ref: '#/components/schemas/Color'
+          description: The color of the clothing item
+        category:
+          type: object
+          $ref: '#/components/schemas/Category'
+          description: The category of the clothing item (e.g., Tops, Bottoms, Dresses)
+        isNew:
+          type: boolean
+          description: Indicates if the clothing item is new or used
+        laundryState:
+          type: object
+          $ref: '#/components/schemas/LaundryState'
+          description: The laundry state of the clothing item
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: The unique identifier for the user
+        firstName:
+          type: string
+          description: The first name of the user
+        lastName:
+          type: string
+          description: The last name of the user
+        email:
+          type: string
+          format: email
+          description: The email address of the user
+        age:
+          type: integer
+          description: The age of the user
+    Size:
+      type: string
+      enum: [4, 6, 8, 10, 12, 14, 16, 18, 20, XS, S, M, L, XL, XXL]
+      description: The size of the clothing item
+    Color:
+      type: string
+      enum: [Red, Blue, Green, Black, White, Yellow, Pink, Purple, Orange, Brown, Gray, Multi-color]
+      description: The color of the clothing item
+    Category:
+      type: string
+      enum: [Tops, Bottoms, Dresses, Outerwear, Accessories, Shoes]
+      description: The category of the clothing item
+    LaundryState:
+      type: string
+      enum: [Ready to Wear, Washing, Needs Ironing, Needs Repair]
+      description: The laundry state of the clothing item
+    InventoryId:
+      type: object
+      properties:
+        inventoryId:
+          type: string
+          description: The unique identifier for the user's inventory
