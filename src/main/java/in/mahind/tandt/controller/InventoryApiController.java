@@ -4,6 +4,8 @@ import in.mahind.tandt.api.InventoryApi;
 import in.mahind.tandt.model.ClothingItem;
 import in.mahind.tandt.model.Color;
 import in.mahind.tandt.model.InventoryId;
+import in.mahind.tandt.service.InventoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InventoryApiController implements InventoryApi {
 
+    private final InventoryService inventoryService;
+
+    @Autowired
+    public InventoryApiController(InventoryService inventoryService) {
+        this.inventoryService = inventoryService;
+    }
+
     @Override
     @PostMapping(
             value = "/inventory/user/{userId}/details",
@@ -23,7 +32,8 @@ public class InventoryApiController implements InventoryApi {
             consumes = { "application/json" }
     )
     public ResponseEntity<InventoryId> createClothingItem(@PathVariable("userId") String userId, ClothingItem clothingItem) {
-        return InventoryApi.super.createClothingItem(userId, clothingItem);
+        ClothingItem createdClothingItem = inventoryService.addClothingItem(clothingItem);
+        return ResponseEntity.ok(new InventoryId().inventoryId(createdClothingItem.getItemId()));
     }
 
     @Override
