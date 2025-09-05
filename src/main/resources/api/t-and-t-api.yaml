@@ -570,7 +570,7 @@ components:
           description: The age of the user
     Size:
       type: string
-      enum: [4, 6, 8, 10, 12, 14, 16, 18, 20, XS, S, M, L, XL, XXL]
+      enum: [UK4, UK6, UK8, UK10, UK12, UK14, UK16, UK18, UK20, XS, S, M, L, XL, XXL]
       description: The size of the clothing item
     Color:
       type: string
