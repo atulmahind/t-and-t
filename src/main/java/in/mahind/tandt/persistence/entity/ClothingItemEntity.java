@@ -3,11 +3,9 @@ package in.mahind.tandt.persistence.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 @Entity
 @Data
-@Accessors(fluent = true)
 public class ClothingItemEntity {
     private String userId;
     @Id
