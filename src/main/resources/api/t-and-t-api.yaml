@@ -33,7 +33,7 @@ paths:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/ClothingItem'
+                $ref: '#/components/schemas/ClothingItemResponse'
         '401':
           description: Unauthorized access, user must be logged in to view clothing items
           content:
@@ -71,14 +71,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ClothingItem'
+              $ref: '#/components/schemas/ClothingItemRequest'
       responses:
         '200':
           description: The clothing item has been updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ClothingItem'
+                $ref: '#/components/schemas/ClothingItemResponse'
         '401':
           description: Unauthorized access, user must be logged in to update clothing items
           content:
@@ -322,7 +322,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ClothingItem'
+              $ref: '#/components/schemas/ClothingItemRequest'
       responses:
         '201':
           description: The created clothing item
@@ -515,15 +515,9 @@ paths:
               example: "User not found, please check the user ID."
 components:
   schemas:
-    ClothingItem:
+    ClothingItemRequest:
       type: object
       properties:
-        userId:
-          type: string
-          description: The unique identifier for the clothing item
-        itemId:
-          type: string
-          description: The unique identifier for the clothing item
         name:
           type: string
           description: The name of the clothing item
@@ -549,6 +543,17 @@ components:
           type: object
           $ref: '#/components/schemas/LaundryState'
           description: The laundry state of the clothing item
+    ClothingItemResponse:
+      allOf:
+        - $ref: '#/components/schemas/ClothingItemRequest'
+        - type: object
+          properties:
+            itemId:
+              type: String
+              description: clothing item unique identifier
+            userId:
+              type: String
+              description: user unique identifier
     User:
       type: object
       properties:
@@ -570,19 +575,19 @@ components:
           description: The age of the user
     Size:
       type: string
-      enum: [UK4, UK6, UK8, UK10, UK12, UK14, UK16, UK18, UK20, XS, S, M, L, XL, XXL]
+      enum: [ UK4, UK6, UK8, UK10, UK12, UK14, UK16, UK18, UK20, XS, S, M, L, XL, XXL ]
       description: The size of the clothing item
     Color:
       type: string
-      enum: [Red, Blue, Green, Black, White, Yellow, Pink, Purple, Orange, Brown, Gray, Multi-color]
+      enum: [ Red, Blue, Green, Black, White, Yellow, Pink, Purple, Orange, Brown, Gray, Multi-color ]
       description: The color of the clothing item
     Category:
       type: string
-      enum: [Tops, Bottoms, Dresses, Outerwear, Accessories, Shoes]
+      enum: [ Tops, Bottoms, Dresses, Outerwear, Accessories, Shoes ]
       description: The category of the clothing item
     LaundryState:
       type: string
-      enum: [Ready to Wear, Washing, Needs Ironing, Needs Repair]
+      enum: [ Ready to Wear, Washing, Needs Ironing, Needs Repair ]
       description: The laundry state of the clothing item
     InventoryId:
       type: object

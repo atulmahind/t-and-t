@@ -1,7 +1,8 @@
 package in.mahind.tandt.controller;
 
 import in.mahind.tandt.api.InventoryApi;
-import in.mahind.tandt.model.ClothingItem;
+import in.mahind.tandt.model.ClothingItemRequest;
+import in.mahind.tandt.model.ClothingItemResponse;
 import in.mahind.tandt.model.Color;
 import in.mahind.tandt.model.InventoryId;
 import in.mahind.tandt.service.InventoryService;
@@ -31,8 +32,8 @@ public class InventoryApiController implements InventoryApi {
             produces = { "application/json" },
             consumes = { "application/json" }
     )
-    public ResponseEntity<InventoryId> createClothingItem(@PathVariable("userId") String userId, ClothingItem clothingItem) {
-        ClothingItem createdClothingItem = inventoryService.addClothingItem(clothingItem);
+    public ResponseEntity<InventoryId> createClothingItem(@PathVariable("userId") String userId, ClothingItemRequest clothingItem) {
+        ClothingItemResponse createdClothingItem = inventoryService.addClothingItem(userId, clothingItem);
         return ResponseEntity.ok(new InventoryId().inventoryId(createdClothingItem.getItemId()));
     }
 
@@ -68,8 +69,9 @@ public class InventoryApiController implements InventoryApi {
             value = "/inventory/{itemId}/details",
             produces = { "application/json" }
     )
-    public ResponseEntity<ClothingItem> getClothingItem(@PathVariable("itemId") String itemId) {
-        ClothingItem clothingItem = new ClothingItem().itemId(itemId).color(Color.MULTI_COLOR);
+    public ResponseEntity<ClothingItemResponse> getClothingItem(@PathVariable("itemId") String itemId) {
+    ClothingItemResponse clothingItem =
+        new ClothingItemResponse().itemId(itemId).color(Color.MULTI_COLOR);
         return ResponseEntity.ok(clothingItem);
     }
 
@@ -79,7 +81,7 @@ public class InventoryApiController implements InventoryApi {
             produces = { "application/json" },
             consumes = { "application/json" }
     )
-    public ResponseEntity<ClothingItem> updateClothingItem(@PathVariable("itemId") String itemId,ClothingItem clothingItem) {
+    public ResponseEntity<ClothingItemResponse> updateClothingItem(@PathVariable("itemId") String itemId,ClothingItemRequest clothingItem) {
         return InventoryApi.super.updateClothingItem(itemId, clothingItem);
     }
 
