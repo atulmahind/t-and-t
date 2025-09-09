@@ -17,6 +17,7 @@ public class InventoryService {
     public ClothingItem addClothingItem(ClothingItem item) {
         ClothingItemEntity clothingItemEntity = clothingItemMapper.map(item);
         ClothingItemEntity savedItem = clothingItemRepository.save(clothingItemEntity);
+        System.out.println("Hello World!");
         return clothingItemMapper.map(savedItem);
     }
 
