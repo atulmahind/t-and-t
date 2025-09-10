@@ -1,8 +1,9 @@
 package in.mahind.tandt.controller;
 
 import in.mahind.tandt.api.UserApi;
+import in.mahind.tandt.model.CreateUserRequest;
+import in.mahind.tandt.model.CreateUserResponse;
 import in.mahind.tandt.model.GetClothingItem401Response;
-import in.mahind.tandt.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,8 @@ public class UserApiController implements UserApi {
             produces = { "application/json" },
             consumes = { "application/json" }
     )
-    public ResponseEntity<GetClothingItem401Response> createUser(User user) {
+    public ResponseEntity<GetClothingItem401Response> createUser(CreateUserRequest user) {
+        
         return UserApi.super.createUser(user);
     }
 
@@ -37,7 +39,7 @@ public class UserApiController implements UserApi {
             value = "/user/{userId}",
             produces = { "application/json" }
     )
-    public ResponseEntity<User> getUserById(@PathVariable("userId") String userId) {
+    public ResponseEntity<CreateUserResponse> getUserById(@PathVariable("userId") String userId) {
         return UserApi.super.getUserById(userId);
     }
 
@@ -48,7 +50,7 @@ public class UserApiController implements UserApi {
             consumes = { "application/json" }
     )
 
-    public ResponseEntity<User> updateUserById(@PathVariable("userId") String userId, User user) {
+    public ResponseEntity<CreateUserResponse> updateUserById(@PathVariable("userId") String userId, CreateUserRequest user) {
         return UserApi.super.updateUserById(userId, user);
     }
 }

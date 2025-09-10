@@ -361,7 +361,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/CreateUserRequest'
       responses:
         '201':
           description: User created successfully
@@ -412,7 +412,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/CreateUserResponse'
         '401':
           description: Unauthorized access, user must be logged in to view user details
           content:
@@ -443,7 +443,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/CreateUserRequest'
       parameters:
         - name: userId
           in: path
@@ -457,7 +457,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/CreateUserResponse'
         '401':
           description: Unauthorized access, user must be logged in to view user details
           content:
@@ -543,6 +543,12 @@ components:
           type: object
           $ref: '#/components/schemas/LaundryState'
           description: The laundry state of the clothing item
+      required:
+        - name
+        - size
+        - color
+        - category
+        - laundryState
     ClothingItemResponse:
       allOf:
         - $ref: '#/components/schemas/ClothingItemRequest'
@@ -554,12 +560,12 @@ components:
             userId:
               type: String
               description: user unique identifier
-    User:
+      required:
+        - userId
+        - itemId
+    CreateUserRequest:
       type: object
       properties:
-        userId:
-          type: string
-          description: The unique identifier for the user
         firstName:
           type: string
           description: The first name of the user
@@ -573,6 +579,20 @@ components:
         age:
           type: integer
           description: The age of the user
+      required:
+        - firstName
+        - email
+    CreateUserResponse:
+      allOf:
+        - $ref: '#/components/schemas/CreateUserRequest'
+        - type: object
+          properties:
+            userId:
+              type: string
+              description: The unique identifier for the user
+      required:
+        - userId
+
     Size:
       type: string
       enum: [ UK4, UK6, UK8, UK10, UK12, UK14, UK16, UK18, UK20, XS, S, M, L, XL, XXL ]
