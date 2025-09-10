@@ -3,7 +3,7 @@ package in.mahind.tandt.controller;
 import in.mahind.tandt.api.UserApi;
 import in.mahind.tandt.model.CreateUserRequest;
 import in.mahind.tandt.model.CreateUserResponse;
-import in.mahind.tandt.model.GetClothingItem401Response;
+import in.mahind.tandt.model.SuccessResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class UserApiController implements UserApi {
             produces = { "application/json" },
             consumes = { "application/json" }
     )
-    public ResponseEntity<GetClothingItem401Response> createUser(CreateUserRequest user) {
+    public ResponseEntity<SuccessResponse> createUser(CreateUserRequest user) {
         
         return UserApi.super.createUser(user);
     }
