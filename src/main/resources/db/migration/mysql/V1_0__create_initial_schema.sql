@@ -11,4 +11,3 @@ create table if not exists clothing_item_entity (
           user_id varchar(20) not null,
           primary key (item_id)
 ) engine=InnoDB;
-

@@ -454,10 +454,10 @@ components:
         - type: object
           properties:
             itemId:
-              type: String
+              type: string
               description: clothing item unique identifier
             userId:
-              type: String
+              type: string
               description: user unique identifier
       required:
         - userId
