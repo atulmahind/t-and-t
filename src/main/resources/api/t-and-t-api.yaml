@@ -32,28 +32,19 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/ClothingItemResponse'
         '401':
           description: Unauthorized access, user must be logged in to view clothing items
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Unauthorized access, please log in."
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Clothing item not found
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Clothing item not found in inventory."
+                $ref: '#/components/schemas/ErrorResponse'
     put:
       tags:
         - inventory
@@ -84,21 +75,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Unauthorized access, please log in."
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Clothing item not found for update
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Clothing item not found in inventory."
+                $ref: '#/components/schemas/ErrorResponse'
     delete:
       tags:
         - inventory
@@ -119,21 +102,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Unauthorized access, please log in."
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Clothing item not found for deletion
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Clothing item not found in inventory."
+                $ref: '#/components/schemas/ErrorResponse'
   /inventory/{itemId}/image:
     get:
       tags:
@@ -160,21 +135,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Unauthorized access, please log in."
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Clothing item not found for image fetching
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Clothing item not found in inventory."
+                $ref: '#/components/schemas/ErrorResponse'
     put:
       tags:
         - inventory
@@ -207,21 +174,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Unauthorized access, please log in."
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Clothing item not found for image update
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Clothing item not found in inventory."
+                $ref: '#/components/schemas/ErrorResponse'
     delete:
       tags:
         - inventory
@@ -242,21 +201,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Unauthorized access, please log in."
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Clothing item not found for image deletion
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Clothing item not found in inventory."
+                $ref: '#/components/schemas/ErrorResponse'
     post:
       tags:
         - inventory
@@ -289,21 +240,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Unauthorized access, please log in."
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: User or clothing item not found for image upload
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "User or clothing item not found, please check the IDs."
+                $ref: '#/components/schemas/ErrorResponse'
   /inventory/user/{userId}/details:
     post:
       tags:
@@ -335,21 +278,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Unauthorized access, please log in."
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: User not found for creating clothing item
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "User not found, please check the user ID."
+                $ref: '#/components/schemas/ErrorResponse'
   /user:
     post:
       tags:
@@ -361,38 +296,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/CreateUserRequest'
       responses:
         '201':
           description: User created successfully
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "User created successfully."
+                $ref: '#/components/schemas/SuccessResponse'
         '400':
           description: Bad request, invalid input data
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Invalid input data."
+                $ref: '#/components/schemas/ErrorResponse'
         '409':
           description: Conflict, user with the same email already exists
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "User with this email already exists."
+                $ref: '#/components/schemas/ErrorResponse'
   /user/{userId}:
     get:
       tags:
@@ -412,27 +335,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/CreateUserResponse'
         '401':
           description: Unauthorized access, user must be logged in to view user details
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Unauthorized access, please log in."
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: User not found
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "User not found, please check the user ID."
+                $ref: '#/components/schemas/ErrorResponse'
     put:
       tags:
         - user
@@ -443,7 +358,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/CreateUserRequest'
       parameters:
         - name: userId
           in: path
@@ -457,27 +372,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/CreateUserResponse'
         '401':
           description: Unauthorized access, user must be logged in to view user details
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Unauthorized access, please log in."
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: User not found
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "User not found, please check the user ID."
+                $ref: '#/components/schemas/ErrorResponse'
     delete:
       tags:
         - user
@@ -498,21 +405,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "Unauthorized access, please log in."
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: User not found for deletion
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              example: "User not found, please check the user ID."
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
     ClothingItemRequest:
@@ -543,23 +442,29 @@ components:
           type: object
           $ref: '#/components/schemas/LaundryState'
           description: The laundry state of the clothing item
+      required:
+        - name
+        - size
+        - color
+        - category
+        - laundryState
     ClothingItemResponse:
       allOf:
         - $ref: '#/components/schemas/ClothingItemRequest'
         - type: object
           properties:
             itemId:
-              type: String
+              type: string
               description: clothing item unique identifier
             userId:
-              type: String
+              type: string
               description: user unique identifier
-    User:
+      required:
+        - userId
+        - itemId
+    CreateUserRequest:
       type: object
       properties:
-        userId:
-          type: string
-          description: The unique identifier for the user
         firstName:
           type: string
           description: The first name of the user
@@ -573,6 +478,31 @@ components:
         age:
           type: integer
           description: The age of the user
+      required:
+        - firstName
+        - email
+    CreateUserResponse:
+      allOf:
+        - $ref: '#/components/schemas/CreateUserRequest'
+        - type: object
+          properties:
+            userId:
+              type: string
+              description: The unique identifier for the user
+      required:
+        - userId
+    ErrorResponse:
+      type: object
+      properties:
+          message:
+            type: string
+      example: "Unauthorized access, please log in."
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      example: "Operation successful."
     Size:
       type: string
       enum: [ UK4, UK6, UK8, UK10, UK12, UK14, UK16, UK18, UK20, XS, S, M, L, XL, XXL ]
