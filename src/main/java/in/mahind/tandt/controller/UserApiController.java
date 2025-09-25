@@ -28,8 +28,8 @@ public class UserApiController implements UserApi {
             consumes = { "application/json" }
     )
     public ResponseEntity<SuccessResponse> createUser(CreateUserRequest user) {
-        
-        return UserApi.super.createUser(user);
+        userService.createUser(user);
+        return ResponseEntity.ok(new SuccessResponse());
     }
 
     @Override
