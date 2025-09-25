@@ -4,6 +4,7 @@ import in.mahind.tandt.api.UserApi;
 import in.mahind.tandt.model.CreateUserRequest;
 import in.mahind.tandt.model.CreateUserResponse;
 import in.mahind.tandt.model.SuccessResponse;
+import in.mahind.tandt.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserApiController implements UserApi {
-    @Override
+    private final UserService userService;
+
+  public UserApiController(UserService userService) {
+    this.userService = userService;
+  }
+
+  @Override
     @PostMapping(
             value = "/user",
             produces = { "application/json" },
